@@ -1,4 +1,4 @@
-# import pandas as pd
+import pandas as pd
 # import requests
 # from google.colab import files
 from private import API_KEY
@@ -10,35 +10,32 @@ from sortedcontainers import SortedList
 import arrow
 import cassiopeia as cass
 
-# from cassiopeia.core import Summoner, MatchHistory, Match
-# from cassiopeia import Queue, Patch
 
+# set the api key
 cass.set_riot_api_key(API_KEY)
-# account = cass.get_account(name="Kalturi", tagline="NA1", region="NA")
-# summoner = account.summoner
-# print(account.name_with_tagline, summoner.level, summoner.region)
 
-# This function helps filter only aram matches for patch 9.19
 def filter_match_history(puuid, patch):
+    """
+    puuid: player id
+    patch: cass.Patch value
+    filters for ARAM games played by the given player on the current patch
+    """
     end_time = patch.end
     if end_time is None:
         end_time = arrow.now()
-    match_history = cass.MatchHistory(puuid=puuid, queue={cass.Queue.aram}, start_time=patch.start, end_time=end_time)
+    match_history = cass.MatchHistory(puuid=puuid, queue={cass.Queue.aram}, 
+                                      start_time=patch.start, end_time=end_time)
     return match_history
 
 
-# Intial summoner
-initial_summoner_name = "Bobybybob"
-region = "NA"
-
-# create cassiopieia summoner object
-account = cass.get_account(name="Kalturi", tagline="NA1", region="NA")
+# create initial cassiopieia summoner object to begin API crawl from
+account = cass.get_account(name="Bobybybob", tagline="6552", region="NA")
 summoner = account.summoner
-patch = cass.Patch.from_str("9.19", region=region)
+patch = cass.Patch.from_str("9.19", region="NA")
 
 # create a sorted list for player ID's (we start with the initial summoner name) 
-unpulled_summoner_ids = SortedList([summoner.id])
-pulled_summoner_ids = SortedList()
+unpulled_puuids = SortedList([summoner.puuid])
+pulled_puuis= SortedList()
 
 # create a sorted list for ARAM match ID's 
 unpulled_match_ids = SortedList()
@@ -51,4 +48,10 @@ num_matches = 100
 match_history = cass.get_match_history(puuid=summoner.puuid, start_time = patch.start, end_time= arrow.now(), queue=cass.Queue.aram, continent=summoner.region.continent )
 print(match_history)
 match = match_history[0]
-print("matchID:", match.id)
+print(match.participants[0].champion)
+print(match.participants[0].stats.magic_damage_dealt)
+# for i in match_history:
+#     print(i.id)
+# print("matchID:", match.id)
+# new_match = cass.Match(id=match, region="NA")
+# print(new_match)
