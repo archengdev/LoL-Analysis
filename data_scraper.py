@@ -37,20 +37,6 @@ def add_to_csv(match):
         writer_obj.writerow(lst)
         file.close()
 
-# def filter_match_history(puuid, patch):
-#     """
-#     puuid: player id
-#     patch: cass.Patch value
-#     filters for ARAM games played by the given player on the current patch
-#     """
-#     end_time = patch.end
-#     if end_time is None:
-#         end_time = arrow.now()
-#     match_history = cass.MatchHistory(puuid=puuid, queue={cass.Queue.aram}, 
-#                                       start_time=patch.start, end_time=end_time)
-#     return match_history
-
-
 # set the api key
 cass.set_riot_api_key(API_KEY)
 cass.print_calls(False)
@@ -69,43 +55,35 @@ seen_puuis = SortedList()
 # create a sorted list for ARAM match ID's to crawl through
 unseen_ids = SortedList()
 
+ctnt = summoner.region.continent
 # number of matches to pull
 num_matches = 100
 
 # while unseen_ids and len(seen_ids) < num_matches:
     # get a random summoner from our list, and pull their match history
 
-    # need: id, 
+    # get the ARAM matches from their history
+
+    # update puuid lists
+
+    # loop over all match ids
+    # while unseen_match_ids and len(seen_match_ids) < num_matches:
+        # get a random match from unseen matches
+
+        # loop over all participants, add them to our unseen list (if unseen)
+
+        # add match data to the csv
+
+        # check progress
 
 # filter_match_history(summoner.puuid, patch)
-match_history = cass.get_match_history(puuid=summoner.puuid, start_time = patch.start, end_time= arrow.now(), queue=cass.Queue.aram, continent=summoner.region.continent )
+match_history = cass.get_match_history(puuid=summoner.puuid, start_time = patch.start, end_time= arrow.now(), queue=cass.Queue.aram, continent=ctnt )
 print(match_history)
 match = match_history[0]
 print(type(match.id))
 print(match.participants[0].champion)
 S1_stats = match.participants[0].stats
 print(match.id, match.participants[0].champion.name, S1_stats.magic_damage_dealt_to_champions, S1_stats.physical_damage_dealt_to_champions, S1_stats.damage_self_mitigated)
-
-# for i in match_history:
-#     print(i.id)
-# print("matchID:", match.id)
-# new_match = cass.Match(id=match, region="NA")
-# print(new_match)
-
-
-
-# while unseen_ids and len(seen_ids) < num_matches:
-    # get a random summoner from our list, and pull their match history
-
-    # need: id, 
-# filter_match_history(summoner.puuid, patch)
-# match_history = cass.get_match_history(puuid=summoner.puuid, start_time = patch.start, end_time= arrow.now(), queue=cass.Queue.aram, continent=continent)
-# print(match_history)
-# match = match_history[0]
-# print(type(match.id))
-# print(match.participants[0].champion)
-# S1_stats = match.participants[0].stats
-# print(match.id, match.participants[0].champion.name, S1_stats.magic_damage_dealt_to_champions, S1_stats.physical_damage_dealt_to_champions, S1_stats.damage_self_mitigated)
 
 # for i in match_history:
 #     print(i.id)
