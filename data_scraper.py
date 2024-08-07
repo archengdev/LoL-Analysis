@@ -13,9 +13,9 @@ seen_match_ids = set()
 with open('aram_damage_data.csv', 'r') as data:
     file = DictReader(data)
 
-    # get match_id from each column, and add to the list
-    for col in file:
-        seen_match_ids.add(int(col['match_id']))
+    # get match_id from each row, and add to the list
+    for row in file:
+        seen_match_ids.add(int(row['match_id']))
 
 
 def add_to_csv(match, writer_obj):
