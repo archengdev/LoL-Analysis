@@ -10,7 +10,7 @@ with open("./9.19/aram_damage_data - 9.19 - 15000rows.csv", "r") as to_read, ope
     writer_obj = writer(to_write)
     
     for row in data:
-        count += 1
+        # count += 1
         winning_mag = winning_phy = winning_mit = winning_magphy = winning_phymit = winning_magphymit = 0
         losing_mag = losing_phy = losing_mit = losing_magphy = losing_phymit = losing_magphymit = 0
 
@@ -58,7 +58,7 @@ with open("./9.19/aram_damage_data - 9.19 - 15000rows.csv", "r") as to_read, ope
         
         if afk: continue
 
-        lst = [row['match_id'], winning_mag, winning_phy, winning_mit, winning_magphy, winning_phy, winning_magphymit, losing_mag, losing_phy, losing_mit, losing_magphy, losing_phymit, losing_magphymit]
+        lst = [row['match_id'], winning_mag, winning_phy, winning_mit, winning_magphy, winning_phymit, winning_magphymit, losing_mag, losing_phy, losing_mit, losing_magphy, losing_phymit, losing_magphymit]
         writer_obj.writerow(lst)
         # break
 
