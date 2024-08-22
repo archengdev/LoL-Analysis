@@ -22,6 +22,8 @@ classification_rep = classification_report(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}")
 print("Classification Report:\n", classification_rep)
 
+
+
 """
 Accuracy: 0.49
 Classification Report:
