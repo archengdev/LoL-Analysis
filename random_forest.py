@@ -6,8 +6,6 @@ from test_train_data import get_data
 
 # split data into training and test set
 X_train, X_test, y_train, y_test = get_data("./9.19/processed_data.csv")
-y_train = y_train.values.flatten()
-y_test = y_test.values.flatten()
 
 # do random forest
 rf_classifier = RandomForestClassifier(n_estimators=100, random_state=3)

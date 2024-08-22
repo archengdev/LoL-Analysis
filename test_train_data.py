@@ -26,4 +26,7 @@ def get_data(file):
     X = pd.concat([X_win, X_loss], ignore_index=True)
 
     # split data into training and test set
-    return train_test_split(X, Y, test_size=0.2, random_state=3)
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=3)
+    y_train = y_train.values.flatten()
+    y_test = y_test.values.flatten()
+    return X_train, X_test, y_train, y_test
